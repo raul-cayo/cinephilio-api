@@ -42,7 +42,7 @@ class UserModel(db.Model):
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "birthdate": self.birthdate,
+            "birthdate": self.birthdate.strftime("%Y-%m-%d"),
             "original_titles": self.original_titles,
             "get_emails": self.get_emails,
             "created_at": self.created_at,
