@@ -33,8 +33,8 @@ class UserModel(db.Model):
         return {
             "id": self.user_id,
             "username": self.username,
-            "email": self.email
-            # "birthdate": self.birthdate.strftime("%Y-%m-%d")
+            "email": self.email,
+            "birthdate": self.birthdate.strftime("%Y-%m-%d")
         }
 
     def json_detailed(self):
@@ -42,11 +42,11 @@ class UserModel(db.Model):
             "id": self.user_id,
             "username": self.username,
             "email": self.email,
-            # "birthdate": self.birthdate.strftime("%Y-%m-%d"),
+            "birthdate": self.birthdate.strftime("%Y-%m-%d"),
             "original_titles": self.original_titles,
-            "get_emails": self.get_emails
-            # "created_at": self.created_at,
-            # "updated_at": self.updated_at
+            "get_emails": self.get_emails,
+            "created_at": self.created_at.strftime("%Y-%m-%d"),
+            "updated_at": self.updated_at.strftime("%Y-%m-%d")
         }
 
     def save_to_db(self):
