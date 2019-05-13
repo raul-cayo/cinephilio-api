@@ -75,13 +75,13 @@ class UserLogin(Resource):
     @classmethod
     def post(cls):
         login_parser = reqparse.RequestParser()
-        register_parser.add_argument(
+        login_parser.add_argument(
             "email",
             type=str,
             required=True,
             help="Email required"
         )
-        register_parser.add_argument(
+        login_parser.add_argument(
             "password",
             type=str,
             required=True,
