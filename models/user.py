@@ -17,7 +17,7 @@ class UserModel(db.Model):
     get_emails = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.Date, default=date.today())
-    updated_at = db.Column(db.Date, onupdate=date.today())
+    updated_at = db.Column(db.Date, onupdate=date.today(), default=date.today())
 
     def __init__(self, username, email, password, birthdate_str):
         self.username = username
