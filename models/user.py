@@ -31,7 +31,7 @@ class UserModel(db.Model):
 
     def json(self):
         return {
-            "id": self.id,
+            "id": self.user_id,
             "username": self.username,
             "email": self.email,
             "birthdate": self.birthdate
@@ -39,7 +39,7 @@ class UserModel(db.Model):
 
     def json_detailed(self):
         return {
-            "id": self.id,
+            "id": self.user_id,
             "username": self.username,
             "email": self.email,
             "birthdate": self.birthdate.strftime("%Y-%m-%d"),
