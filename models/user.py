@@ -17,16 +17,20 @@ class UserModel(db.Model):
     get_emails = db.Column(db.Boolean, default=False)
 
     created_at = db.Column(db.Date, default=date.today())
-    updated_at = db.Column(db.Date, onupdate=date.today(), default=date.today())
+    updated_at = db.Column(
+        db.Date,
+        onupdate=date.today(),
+        default=date.today()
+    )
 
-    def __init__(self, username, email, password, birthdate_str):
+    def __init__(self, username, email, password, birthdate):
         self.username = username
         self.email = email
         self.password = password
         self.birthdate = date(
-            int(birthdate_str[0:4]),
-            int(birthdate_str[5:7]),
-            int(birthdate_str[8:10])
+            int(birthdate[0:4]),
+            int(birthdate[5:7]),
+            int(birthdate[8:10])
         )
 
     def json(self):
