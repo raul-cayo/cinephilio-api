@@ -19,22 +19,22 @@ class UserModel(db.Model):
     created_at = db.Column(db.Date, default=date.today())
     updated_at = db.Column(db.Date, onupdate=date.today())
 
-    def __init__(self, username, email, password, birthdate):
+    def __init__(self, username, email, password, birthdate_str):
         self.username = username
         self.email = email
         self.password = password
         self.birthdate = date(
-            int(birthdate[0:4]),
-            int(birthdate[5:7]),
-            int(birthdate[8:10])
+            int(birthdate_str[0:4]),
+            int(birthdate_str[5:7]),
+            int(birthdate_str[8:10])
         )
 
     def json(self):
         return {
             "id": self.user_id,
             "username": self.username,
-            "email": self.email,
-            "birthdate": self.birthdate
+            "email": self.email
+            # "birthdate": self.birthdate.strftime("%Y-%m-%d")
         }
 
     def json_detailed(self):
@@ -42,7 +42,7 @@ class UserModel(db.Model):
             "id": self.user_id,
             "username": self.username,
             "email": self.email,
-            "birthdate": self.birthdate.strftime("%Y-%m-%d"),
+            # "birthdate": self.birthdate.strftime("%Y-%m-%d"),
             "original_titles": self.original_titles,
             "get_emails": self.get_emails,
             "created_at": self.created_at,
