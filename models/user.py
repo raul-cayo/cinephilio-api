@@ -10,7 +10,7 @@ class UserModel(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(16), nullable=False)
+    password = db.Column(db.String(512), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
 
     original_titles = db.Column(db.Boolean, default=True)
@@ -34,14 +34,6 @@ class UserModel(db.Model):
         )
 
     def json(self):
-        return {
-            "id": self.user_id,
-            "username": self.username,
-            "email": self.email,
-            "birthdate": self.birthdate.strftime("%Y-%m-%d")
-        }
-
-    def json_detailed(self):
         return {
             "id": self.user_id,
             "username": self.username,
