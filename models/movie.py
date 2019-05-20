@@ -104,4 +104,5 @@ class MovieSeenModel(db.Model):
 
     @classmethod
     def find_by_ids(cls, _user_id, _movie_id):
-        return cls.query.filter_by(user_id=_user_id, movie_id=_movie_id).first()
+        return \
+            cls.query.filter_by(user_id=_user_id, movie_id=_movie_id).first()
