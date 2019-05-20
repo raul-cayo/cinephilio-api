@@ -21,7 +21,9 @@ class MovieModel(db.Model):
         default=date.today()
     )
 
-    def __init__(self, original_title, release_date, poster_path=None):
+    def __init__(
+            self, movie_id, original_title, release_date, poster_path=None):
+        self.movie_id = movie_id
         self.original_title = original_title
         self.release_date = date(
             int(release_date[0:4]),
