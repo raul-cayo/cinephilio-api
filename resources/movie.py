@@ -74,6 +74,11 @@ class MovieSeen(Resource):
             score = 0
 
         user_id = get_jwt_identity()
+
+        if MovieSeenModel.find_by_ids(user_id, movie_id):
+            return {"message": "This movie is already on \
+                current user's Movies Seen List"}
+
         movie_seen = MovieSeenModel(user_id, movie_id, score)
         movie_seen.save_to_db()
 
