@@ -110,6 +110,6 @@ class UserLogout(Resource):
 class TokenRefresh(Resource):
     @jwt_refresh_token_required
     def post(self):
-        current_user = get_jwt_identity()
-        new_token = create_access_token(identity=current_user, fresh=False)
+        user_id = get_jwt_identity()
+        new_token = create_access_token(identity=user_id, fresh=False)
         return {"access_token": new_token}, 200
