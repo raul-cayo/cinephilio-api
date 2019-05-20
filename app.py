@@ -11,6 +11,11 @@ from resources.user import (
     TokenRefresh,
     UserLogout
 )
+from resources.movie import (
+    Movie,
+    MovieAdd,
+    MoviesSeenAdd
+)
 from blacklist import BLACKLIST
 
 # Initialize the app and configure the database
@@ -37,6 +42,10 @@ api.add_resource(User, "/user")
 api.add_resource(UserLogin, "/login")
 api.add_resource(UserLogout, "/logout")
 api.add_resource(TokenRefresh, "/refresh")
+
+api.add_resource(MovieAdd, "/movie")
+api.add_resource(Movie, "/movie/<int:movie_id>")
+api.add_resource(MoviesSeenAdd, "/movies-seen/<int:movie_id>")
 
 # Run the API from this file
 if __name__ == '__main__':
