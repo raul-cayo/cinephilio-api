@@ -3,6 +3,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 # Own libraries
 from resources.user import (
     UserRegister,
@@ -20,6 +21,7 @@ from blacklist import BLACKLIST
 
 # Initialize the app and configure the database
 app = Flask(__name__)
+CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('JAWSDB_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
