@@ -76,14 +76,14 @@ class MovieSeen(Resource):
         user_id = get_jwt_identity()
 
         if MovieSeenModel.find_by_ids(user_id, movie_id):
-            return {"message": "This movie is already on \
-                current user's Movies Seen List"}
+            return {"message": "This movie is already on "
+                    "current user's Movies Seen List"}
 
         movie_seen = MovieSeenModel(user_id, movie_id, score)
         movie_seen.save_to_db()
 
-        return {"message": "Movie added succesfully \
-            to user movies seen list"}, 201
+        return {"message": "Movie added succesfully "
+                "to user movies seen list"}, 201
 
     @classmethod
     @jwt_required
@@ -92,6 +92,6 @@ class MovieSeen(Resource):
         movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
 
         if not movie_seen:
-            return {"message": "Movie not found in \
-                this user 'Movies Seen List'"}, 404
+            return {"message": "Movie not found in "
+                    "this user 'Movies Seen List'"}, 404
         return movie_seen.json(), 200
