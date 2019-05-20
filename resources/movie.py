@@ -10,6 +10,12 @@ class MovieAdd(Resource):
     def post(cls):
         movie_parser = reqparse.RequestParser()
         movie_parser.add_argument(
+            "movie_id",
+            type=int,
+            required=True,
+            help="Movie ID required"
+        )
+        movie_parser.add_argument(
             "original_title",
             type=str,
             required=True,
@@ -28,6 +34,9 @@ class MovieAdd(Resource):
         )
 
         data = movie_parser.parse_args()
+
+        if MovieModel.find_by_id(data["movie_id"]):
+            return {"message": "A movie with that ID already exists"}, 400
 
         if MovieModel.find_by_title(data["original_title"]):
             return {"message": "A movie with that title already exists"}, 400
