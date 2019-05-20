@@ -14,7 +14,7 @@ from resources.user import (
 from resources.movie import (
     Movie,
     MovieAdd,
-    MoviesSeenAdd
+    MovieSeen
 )
 from blacklist import BLACKLIST
 
@@ -45,7 +45,7 @@ api.add_resource(TokenRefresh, "/refresh")
 
 api.add_resource(MovieAdd, "/movie")
 api.add_resource(Movie, "/movie/<int:movie_id>")
-api.add_resource(MoviesSeenAdd, "/movies-seen/<int:movie_id>")
+api.add_resource(MovieSeen, "/movies-seen/<int:movie_id>")
 
 # Run the API from this file
 if __name__ == '__main__':

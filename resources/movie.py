@@ -2,7 +2,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
-from models.movie import MovieModel, MoviesSeenModel
+from models.movie import MovieModel, MovieSeenModel
 
 
 class MovieAdd(Resource):
@@ -56,7 +56,7 @@ class Movie(Resource):
         return movie.json(), 200
 
 
-class MoviesSeenAdd(Resource):
+class MovieSeen(Resource):
     @classmethod
     @jwt_required
     def post(cls, movie_id):
@@ -74,7 +74,19 @@ class MoviesSeenAdd(Resource):
             score = 0
 
         user_id = get_jwt_identity()
-        movies_seen = MoviesSeenModel(user_id, movie_id, score)
-        movies_seen.save_to_db()
+        movie_seen = MovieSeenModel(user_id, movie_id, score)
+        movie_seen.save_to_db()
 
-        return {"message": "Movie added succesfully to user movies seen list"}
+        return {"message": "Movie added succesfully \
+            to user movies seen list"}, 201
+
+    @classmethod
+    @jwt_required
+    def get(cls, movie_id):
+        user_id = get_jwt_identity()
+        movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
+
+        if not movie_seen:
+            return {"message": "Movie not found in \
+                this user 'Movies Seen List'"}, 404
+        return movie_seen.json(), 200

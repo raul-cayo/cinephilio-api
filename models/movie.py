@@ -60,7 +60,7 @@ class MovieModel(db.Model):
         return cls.query.filter_by(original_title=title).first()
 
 
-class MoviesSeenModel(db.Model):
+class MovieSeenModel(db.Model):
     __tablename__ = "movies_seen"
 
     user_id = db.Column(
@@ -101,3 +101,7 @@ class MoviesSeenModel(db.Model):
     def delete_from_db(self):
         db.session.delete(self)
         db.session.commit()
+
+    @classmethod
+    def find_by_ids(cls, _user_id, _movie_id):
+        return cls.query.filter_by(user_id=_user_id, movie_id=_movie_id)
