@@ -94,4 +94,4 @@ class MovieSeen(Resource):
         if not movie_seen:
             return {"message": "Movie not found in "
                     "this user 'Movies Seen List'"}, 404
-        return {"message": "Movie seen found on this list"}
+        return movie_seen.json(), 200
