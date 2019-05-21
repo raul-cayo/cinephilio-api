@@ -23,7 +23,7 @@ class UserModel(db.Model):
         default=date.today()
     )
 
-    movies_seen = db.relationsship("MovieSeenModel")
+    movies_seen = db.relationship("MovieSeenModel")
 
     def __init__(self, username, email, password, birthdate):
         self.username = username
