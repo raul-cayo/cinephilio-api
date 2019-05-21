@@ -5,6 +5,13 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from models.movie import MovieModel, MovieSeenModel
 from models.user import UserModel
 
+_score_parser = reqparse.RequestParser()
+_score_parser.add_argument(
+    "score",
+    type=int,
+    required=False
+)
+
 
 class MovieAdd(Resource):
     @classmethod
@@ -61,21 +68,13 @@ class MovieSeen(Resource):
     @classmethod
     @jwt_required
     def post(cls, movie_id):
-        score_parser = reqparse.RequestParser()
-        score_parser.add_argument(
-            "score",
-            type=int,
-            required=False
-        )
+        data = _score_parser.parse_args()
 
-        data = score_parser.parse_args()
+        score = 0
         if data["score"]:
             score = data["score"]
-        else:
-            score = 0
 
         user_id = get_jwt_identity()
-
         if MovieSeenModel.find_by_ids(user_id, movie_id):
             return {"message": "This movie is already on "
                     "current user's Movies Seen List"}
@@ -85,6 +84,26 @@ class MovieSeen(Resource):
 
         return {"message": "Movie added succesfully "
                 "to user movies seen list"}, 201
+
+    @classmethod
+    @jwt_required
+    def put(cls, movie_id):
+        data = _score_parser.parse_args()
+
+        score = 0
+        if data["score"]:
+            score = data["score"]
+
+        user_id = get_jwt_identity()
+        movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
+        if not movie_seen:
+            movie_seen = MovieSeenModel(user_id, movie_id, score)
+        else:
+            movie_seen.score = data["score"]
+
+        movie_seen.save_to_db()
+
+        return {"message": "Movie score succesfully updated"}, 200
 
     @classmethod
     @jwt_required
