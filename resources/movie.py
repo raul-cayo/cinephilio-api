@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
 from models.movie import MovieModel, MovieSeenModel
+from models.user import UserModel
 
 
 class MovieAdd(Resource):
@@ -95,3 +96,12 @@ class MovieSeen(Resource):
             return {"message": "Movie not found in "
                     "this user 'Movies Seen List'"}, 404
         return movie_seen.json(), 200
+
+
+class MoviesSeenList(Resource):
+    @classmethod
+    @jwt_required
+    def get(cls):
+        user_id = get_jwt_identity()
+        user = UserModel.find_by_id(user_id)
+        return user.get_movies_seen()

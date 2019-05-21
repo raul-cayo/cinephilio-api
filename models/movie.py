@@ -82,6 +82,8 @@ class MovieSeenModel(db.Model):
         default=date.today()
     )
 
+    movie_seen = db.relationship("MovieModel")
+
     def __init__(self, user_id, movie_id, score=0):
         self.user_id = user_id
         self.movie_id = movie_id
@@ -106,3 +108,7 @@ class MovieSeenModel(db.Model):
     def find_by_ids(cls, _user_id, _movie_id):
         return \
             cls.query.filter_by(user_id=_user_id, movie_id=_movie_id).first()
+    
+    @classmethod
+    def find_all_by_user(cls, _user_id):
+        return cls.query.filter_by(user_id=_user_id).all()
