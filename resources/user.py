@@ -58,8 +58,8 @@ class User(Resource):
         if UserModel.find_by_email(data["email"]):
             return {"message": "A user with that email already exists"}, 400
 
-        # **data | username=data["username"], password=data["password"], ...
-        user = UserModel(**data)
+        user = UserModel(data["username"], data["email"],
+                         data["password"], data["birthdate"])
         user.save_to_db()
         return {"message": "User created successfully"}, 201
 
