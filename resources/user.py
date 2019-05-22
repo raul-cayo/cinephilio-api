@@ -13,37 +13,47 @@ from flask_jwt_extended import (
 from models.user import UserModel
 from blacklist import BLACKLIST
 
+_user_parser = reqparse.RequestParser()
+_user_parser.add_argument(
+    "username",
+    type=str,
+    required=True,
+    help="Username required"
+)
+_user_parser.add_argument(
+    "email",
+    type=str,
+    required=True,
+    help="Email required"
+)
+_user_parser.add_argument(
+    "password",
+    type=str,
+    required=True,
+    help="Password required"
+)
+_user_parser.add_argument(
+    "birthdate",
+    type=str,
+    required=True,
+    help="Birthdate required"
+)
+_user_parser.add_argument(
+    "original_titles",
+    type=bool,
+    required=False
+)
+_user_parser.add_argument(
+    "get_emails",
+    type=bool,
+    required=False
+)
 
-class UserRegister(Resource):
+
+class User(Resource):
     @classmethod
     def post(cls):
-        register_parser = reqparse.RequestParser()
-        register_parser.add_argument(
-            "username",
-            type=str,
-            required=True,
-            help="Username required"
-        )
-        register_parser.add_argument(
-            "email",
-            type=str,
-            required=True,
-            help="Email required"
-        )
-        register_parser.add_argument(
-            "password",
-            type=str,
-            required=True,
-            help="Password required"
-        )
-        register_parser.add_argument(
-            "birthdate",
-            type=str,
-            required=True,
-            help="Birthdate required"
-        )
-
-        data = register_parser.parse_args()
+        data = _user_parser.parse_args()
 
         if UserModel.find_by_email(data["email"]):
             return {"message": "A user with that email already exists"}, 400
@@ -53,8 +63,33 @@ class UserRegister(Resource):
         user.save_to_db()
         return {"message": "User created successfully"}, 201
 
+    @classmethod
+    @jwt_required
+    def put(cls):
+        data = _user_parser.parse_args()
+        user_id = get_jwt_identity()
+        user = UserModel.find_by_id(user_id)
 
-class User(Resource):
+        if not user:
+            return {"message": "User not found"}, 404
+
+        if user.email != data["email"] and \
+                UserModel.find_by_email(data["email"]):
+            return {"message": "A user with that email already exists"}, 400
+
+        # Update user information
+        user.username = data["username"]
+        user.email = data["email"]
+        user.password = data["password"]
+        user.birthdate = data["birthdate"]
+        if data["original_titles"]:
+            user.original_titles = data["original_titles"]
+        if data["get_emails"]:
+            user.get_emails = data["get_emails"]
+
+        user.save_to_db()
+        return {"message": "User updated successfully"}, 200
+
     @classmethod
     @jwt_required
     def get(cls):
