@@ -54,7 +54,6 @@ class User(Resource):
     @classmethod
     def post(cls):
         data = _user_parser.parse_args()
-
         if UserModel.find_by_email(data["email"]):
             return {"message": "A user with that email already exists"}, 400
 
