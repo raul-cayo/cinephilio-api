@@ -95,7 +95,7 @@ class MovieSeenModel(db.Model):
             "movie_id": self.movie_id,
             "score": self.score,
             "original_title": self.movie_seen.original_title,
-            "release_date": self.movie_seen.release_date,
+            "release_date": self.movie_seen.release_date.strftime("%Y-%m-%d"),
             "poster_path": self.movie_seen.poster_path
         }
 
