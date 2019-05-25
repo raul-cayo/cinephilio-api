@@ -27,6 +27,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('JAWSDB_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["PROPAGATE_EXCEPTIONS"] = True
 app.config["JWT_BLACKLIST_ENABLED"] = True
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = (60 * 60 * 8) # 8 horas
 app.config["JWT_BLACKLIST_TOKEN_CHECKS"] = ["access", "refresh"]
 app.secret_key = 'cayo'  # app.config["JWT_SECRET_KEY"] defaults to this value
 api = Api(app)
