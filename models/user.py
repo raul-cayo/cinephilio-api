@@ -50,7 +50,7 @@ class UserModel(db.Model):
     def get_movies_seen(self):
         return {
             "movies_seen":
-                [movie.movie_seen.json() for movie in self.movies_seen]
+                [movie.json() for movie in self.movies_seen]
         }
 
     def save_to_db(self):
