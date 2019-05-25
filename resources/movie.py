@@ -64,6 +64,13 @@ class Movie(Resource):
         return movie.json(), 200
 
 
+class MovieList(Resource):
+    @classmethod
+    def get(cls):
+        return {"movies":
+                [movie.json() for movie in MovieModel.get_all_movies()]}
+
+
 class MovieSeen(Resource):
     @classmethod
     @jwt_required

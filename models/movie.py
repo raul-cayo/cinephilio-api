@@ -52,6 +52,10 @@ class MovieModel(db.Model):
         db.session.commit()
 
     @classmethod
+    def get_all_movies(cls):
+        return cls.query.all()
+
+    @classmethod
     def find_by_id(cls, _movie_id):
         return cls.query.filter_by(movie_id=_movie_id).first()
 
