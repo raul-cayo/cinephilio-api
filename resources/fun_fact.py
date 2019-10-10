@@ -7,6 +7,6 @@ from models.fun_fact import FunFactModel
 
 class FunFact(Resource):
     @classmethod
-    def get(cls, movie_id):
+    def get(cls):
         total = FunFactModel.total_fun_fatcs()
         return FunFactModel.find_by_id(randint(1, total)).json(), 200
