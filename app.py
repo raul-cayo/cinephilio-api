@@ -47,7 +47,7 @@ api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(MovieSeen, "/movie-seen/<int:movie_id>")
 api.add_resource(MoviesSeenList, "/movies-seen")
 
-api.add_resource(FunFact, "/fun_fact")
+api.add_resource(FunFact, "/fun-fact")
 
 # Run the API from this file
 if __name__ == '__main__':
