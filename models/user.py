@@ -20,8 +20,6 @@ class UserModel(db.Model):
         default=date.today()
     )
 
-    movies_seen = db.relationship("MovieSeenModel")
-
     def __init__(self, username, email, password, birthdate):
         self.username = username
         self.email = email
@@ -40,12 +38,6 @@ class UserModel(db.Model):
             "birthdate": self.birthdate.strftime("%Y-%m-%d"),
             "created_at": self.created_at.strftime("%Y-%m-%d"),
             "updated_at": self.updated_at.strftime("%Y-%m-%d")
-        }
-
-    def get_movies_seen(self):
-        return {
-            "movies_seen":
-                [movie.json() for movie in self.movies_seen]
         }
 
     def save_to_db(self):
