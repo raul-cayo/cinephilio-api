@@ -51,5 +51,6 @@ class MovieSeenModel(db.Model):
             cls.query.filter_by(user_id=_user_id, movie_id=_movie_id).first()
 
     @classmethod
-    def find_all_by_user(cls, _user_id):
-        return cls.query.filter_by(user_id=_user_id).all()
+    def all_by_user_json(cls, _user_id):
+        all_movies = cls.query.filter_by(user_id=_user_id).all()
+        return {"movies_seenn": [movie.json() for movie in all_movies]}

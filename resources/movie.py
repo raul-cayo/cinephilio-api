@@ -3,7 +3,6 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
 from models.movie import MovieSeenModel
-from models.user import UserModel
 
 _score_parser = reqparse.RequestParser()
 _score_parser.add_argument(
@@ -83,5 +82,4 @@ class MoviesSeenList(Resource):
     @jwt_required
     def get(cls):
         user_id = get_jwt_identity()
-        user = UserModel.find_by_id(user_id)
-        return user.get_movies_seen()
+        return MovieSeenModel.all_by_user_json(user_id)
