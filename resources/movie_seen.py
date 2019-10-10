@@ -2,7 +2,7 @@
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
-from models.movie import MovieSeenModel
+from models.movie_seen import MovieSeenModel
 
 _score_parser = reqparse.RequestParser()
 _score_parser.add_argument(
