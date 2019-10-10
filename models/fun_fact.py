@@ -7,7 +7,7 @@ class FunFactModel(db.Model):
     __tablename__ = "fun_facts"
 
     fun_fact_id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(256), nullable=False)
+    text = db.Column(db.String(512), nullable=False)
 
     def __init__(self, text):
         self.text = text
