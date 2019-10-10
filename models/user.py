@@ -13,9 +13,6 @@ class UserModel(db.Model):
     password = db.Column(db.String(512), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
 
-    original_titles = db.Column(db.Boolean, default=True)
-    get_emails = db.Column(db.Boolean, default=False)
-
     created_at = db.Column(db.Date, default=date.today())
     updated_at = db.Column(
         db.Date,
@@ -41,8 +38,6 @@ class UserModel(db.Model):
             "username": self.username,
             "email": self.email,
             "birthdate": self.birthdate.strftime("%Y-%m-%d"),
-            "original_titles": self.original_titles,
-            "get_emails": self.get_emails,
             "created_at": self.created_at.strftime("%Y-%m-%d"),
             "updated_at": self.updated_at.strftime("%Y-%m-%d")
         }

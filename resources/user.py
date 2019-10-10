@@ -38,16 +38,6 @@ _user_parser.add_argument(
     required=True,
     help="Birthdate required"
 )
-_user_parser.add_argument(
-    "original_titles",
-    type=bool,
-    required=False
-)
-_user_parser.add_argument(
-    "get_emails",
-    type=bool,
-    required=False
-)
 
 
 class User(Resource):
@@ -81,10 +71,6 @@ class User(Resource):
         user.email = data["email"]
         user.password = data["password"]
         user.birthdate = data["birthdate"]
-        if data["original_titles"]:
-            user.original_titles = data["original_titles"]
-        if data["get_emails"]:
-            user.get_emails = data["get_emails"]
 
         user.save_to_db()
         return {"message": "User updated successfully"}, 200
