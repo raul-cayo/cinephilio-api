@@ -24,4 +24,4 @@ class FunFactModel(db.Model):
 
     @classmethod
     def total_fun_fatcs(cls):
-        return len(cls.query().all())
+        return len(cls.query.all())
