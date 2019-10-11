@@ -52,7 +52,7 @@ api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(MovieSeen, "/movie-seen/<int:movie_id>")
 api.add_resource(MoviesSeenList, "/movies-seen")
 
-api.add_resource(Attribute, "/attr/<int:attr_id>")
+api.add_resource(Attribute, "/attr/<string:attr_id>")
 api.add_resource(AttributesList, "/attrs")
 api.add_resource(UserProfile, "/user-profile")
 
