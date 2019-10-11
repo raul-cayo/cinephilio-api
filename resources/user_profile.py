@@ -20,7 +20,7 @@ class Attribute(Resource):
         if AttributeModel.find_by_id(attr_id):
             return {"message": "This attribute already exists"}
 
-        attribute = Attribute(attr_id, data["description"])
+        attribute = AttributeModel(attr_id, data["description"])
         attribute.save_to_db()
 
         return {"message": "Attribute added succesfully"}, 201
