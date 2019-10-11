@@ -14,11 +14,11 @@ class AttributeModel(db.Model):
         self.attr_id = attr_id
         self.description = description
 
-    def json(self):
-        return {
-            "attr_id": self.attr_id,
-            "description": self.description
-        }
+    def get_id(self):
+        return self.attr_id
+
+    def get_description(self):
+        return self.description
 
     def save_to_db(self):
         db.session.add(self)
@@ -34,8 +34,12 @@ class AttributeModel(db.Model):
 
     @classmethod
     def find_all_json(cls):
-        all_attributes = cls.query.all()
-        return {"all_attributes": [attr.json() for attr in all_attributes]}
+        all_attrs = cls.query.all()
+        profile = {}
+        for attr in all_attrs:
+            profile[attr.get_id()] = attr.get_description()
+
+        return profile
 
 
 class UserProfileModel(db.Model):
@@ -86,11 +90,10 @@ class UserProfileModel(db.Model):
 
     @classmethod
     def user_profile_json(cls, _user_id):
-        all_attr = cls.query.filter_by(user_id=_user_id).all()
-
+        all_attrs = cls.query.filter_by(user_id=_user_id).all()
         profile = {}
         profile["user_id"] = _user_id
-        for attr in all_attr:
+        for attr in all_attrs:
             profile[attr.get_id()] = attr.get_value()
 
         return profile
