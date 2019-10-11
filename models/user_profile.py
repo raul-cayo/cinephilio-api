@@ -14,12 +14,6 @@ class AttributeModel(db.Model):
         self.attr_id = attr_id
         self.description = description
 
-    def get_id(self):
-        return self.attr_id
-
-    def get_description(self):
-        return self.description
-
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
@@ -37,7 +31,7 @@ class AttributeModel(db.Model):
         all_attrs = cls.query.all()
         profile = {}
         for attr in all_attrs:
-            profile[attr.get_id()] = attr.get_description()
+            profile[attr.attr_id] = attr.description
 
         return profile
 
@@ -69,12 +63,6 @@ class UserProfileModel(db.Model):
         self.attr_id = attr_id
         self.value = value
 
-    def get_id(self):
-        return self.attr_id
-
-    def get_value(self):
-        return self.value
-
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
@@ -94,6 +82,6 @@ class UserProfileModel(db.Model):
         profile = {}
         profile["user_id"] = _user_id
         for attr in all_attrs:
-            profile[attr.get_id()] = attr.get_value()
+            profile[attr.attr_id] = attr.value
 
         return profile

@@ -93,6 +93,8 @@ class UserProfile(Resource):
             attr = UserProfileModel.find_by_ids(user_id, attr_id)
             if not attr:
                 attr = UserProfileModel(user_id, attr_id, data[attr_id])
+            else:
+                attr.value = data[attr_id]
             attr.save_to_db()
 
         return {"message": "User profile succesfully updated"}, 200
