@@ -70,7 +70,7 @@ class MovieSeen(Resource):
         movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
         if not movie_seen:
             return {"message": "Movie not found in "
-                    "this user 'Movies Seen List'"}, 404\
+                    "this user 'Movies Seen List'"}, 404
 
         movie_seen.delete_from_db()
         return {"message": "Movie removed from this user "

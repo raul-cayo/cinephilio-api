@@ -15,6 +15,11 @@ from resources.movie_seen import (
     MovieSeen,
     MoviesSeenList,
 )
+from resources.user_profile import (
+    Attribute,
+    AttributesList,
+    UserProfile
+)
 from resources.fun_fact import FunFact
 from blacklist import BLACKLIST
 
@@ -46,6 +51,10 @@ api.add_resource(TokenRefresh, "/refresh")
 
 api.add_resource(MovieSeen, "/movie-seen/<int:movie_id>")
 api.add_resource(MoviesSeenList, "/movies-seen")
+
+api.add_resource(Attribute, "/attr/<int:attr_id>")
+api.add_resource(AttributesList, "/attrs")
+api.add_resource(UserProfile, "/user-profile")
 
 api.add_resource(FunFact, "/fun-fact")
 
