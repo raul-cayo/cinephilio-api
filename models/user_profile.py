@@ -48,7 +48,7 @@ class UserProfileModel(db.Model):
     )
     attr_id = db.Column(
         db.String(16),
-        db.ForeingKey("attributes.attr_id"),
+        db.ForeignKey("attributes.attr_id"),
         primary_key=True
     )
     value = db.Column(db.Integer, default=50)
