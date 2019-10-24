@@ -142,6 +142,10 @@ class UserLogout(Resource):
 
 
 class TokenRefresh(Resource):
+    @jwt_required
+    def get(self):
+        return {"message": "Token is still valid"}, 200
+
     @jwt_refresh_token_required
     def post(self):
         user_id = get_jwt_identity()
