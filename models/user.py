@@ -35,6 +35,7 @@ class UserModel(db.Model):
             "user_id": self.user_id,
             "username": self.username,
             "email": self.email,
+            "password": self.password,
             "birthdate": self.birthdate.strftime("%Y-%m-%d"),
             "created_at": self.created_at.strftime("%Y-%m-%d"),
             "updated_at": self.updated_at.strftime("%Y-%m-%d")
