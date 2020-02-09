@@ -15,16 +15,16 @@ _score_parser.add_argument(
 class MovieSeen(Resource):
     @classmethod
     @jwt_required
-    def put(cls):
-        # data contains: movie_id, liked_by_user, is_deleted
+    def put(cls, movie_id):
+        # data contains: liked_by_user, is_deleted
         data = _score_parser.parse_args()
 
         user_id = get_jwt_identity()
-        movie_seen = MovieSeenModel.find_by_ids(user_id, data["movie_id"])
+        movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
         if not movie_seen:
             movie_seen = MovieSeenModel(
                 user_id,
-                data["movie_id"],
+                movie_id,
                 data["liked_by_user"],
                 data["is_deleted"]
             )
