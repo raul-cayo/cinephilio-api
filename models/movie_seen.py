@@ -12,29 +12,31 @@ class MovieSeenModel(db.Model):
         db.ForeignKey("users.user_id"),
         primary_key=True
     )
-    movie_id = db.Column(
-        db.Integer,
-        primary_key=True
-    )
-    score = db.Column(db.Integer, default=0)
+    movie_id = db.Column(db.Integer, primary_key=True)
+    liked_by_user = db.Column(db.Boolean)
+    is_deleted = db.Column(db.Boolean, default=False)
 
-    created_at = db.Column(db.Date, default=date.today())
+    created_at = db.Column(
+        db.Date,
+        default=date.today()
+    )
     updated_at = db.Column(
         db.Date,
         onupdate=date.today(),
         default=date.today()
     )
 
-    def __init__(self, user_id, movie_id, score=0):
+    def __init__(self, user_id, movie_id, liked_by_user, is_deleted=False):
         self.user_id = user_id
         self.movie_id = movie_id
-        self.score = score
+        self.liked_by_user = liked_by_user
+        self.is_deleted = is_deleted
 
     def json(self):
         return {
-            "user_id": self.user_id,
             "movie_id": self.movie_id,
-            "score": self.score
+            "liked_by_user": self.liked_by_user,
+            "is_deleted": self.is_deleted
         }
 
     def save_to_db(self):
