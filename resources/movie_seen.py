@@ -4,11 +4,16 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
 from models.movie_seen import MovieSeenModel
 
-_score_parser = reqparse.RequestParser()
-_score_parser.add_argument(
-    "score",
-    type=int,
-    required=False
+_movie_parser = reqparse.RequestParser()
+_movie_parser.add_argument(
+    "liked_by_user",
+    type=bool,
+    required=True
+)
+_movie_parser.add_argument(
+    "is_deleted",
+    type=bool,
+    required=True
 )
 
 
@@ -17,7 +22,7 @@ class MovieSeen(Resource):
     @jwt_required
     def put(cls, movie_id):
         # data contains: liked_by_user, is_deleted
-        data = _score_parser.parse_args()
+        data = _movie_parser.parse_args()
 
         user_id = get_jwt_identity()
         movie_seen = MovieSeenModel.find_by_ids(user_id, movie_id)
