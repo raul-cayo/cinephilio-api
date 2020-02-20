@@ -4,6 +4,7 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 # Own libraries
 from models.user_profile import AttributeModel
 from models.user_profile import UserProfileModel
+from models.user import UserModel
 
 
 class Attribute(Resource):
@@ -96,6 +97,10 @@ class UserProfile(Resource):
             else:
                 attr.value = data[attr_id]
             attr.save_to_db()
+        
+        user = UserModel.find_by_id(user_id)
+        user.profile_weight += 1
+        user.save_to_db()
 
         return {"message": "User profile succesfully updated"}, 200
 
