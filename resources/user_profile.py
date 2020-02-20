@@ -92,8 +92,10 @@ class UserProfile(Resource):
             if not attr:
                 attr = UserProfileModel(user_id, attr_id, data[attr_id])
             else:
-                attr.value = ((attr.value * user.profile_weight)
-                              + data[attr_id]) / (user.profile_weight + 1)
+                attr.value = round(
+                    ((attr.value * user.profile_weight)
+                     + data[attr_id]) / (user.profile_weight + 1)
+                )
             attr.save_to_db()
 
         user.profile_weight += 1
