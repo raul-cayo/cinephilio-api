@@ -2,7 +2,6 @@
 from datetime import date
 # Own libraries
 from db import db
-from models.user import UserModel
 
 
 class AttributeModel(db.Model):
@@ -83,10 +82,4 @@ class UserProfileModel(db.Model):
         for attr in cls.query.filter_by(user_id=_user_id).all():
             all_attrs[attr.attr_id] = attr.value
 
-        profile = {
-            "attrs": all_attrs,
-            "user_id": _user_id,
-            "weight": UserModel.find_by_id(_user_id).profile_weight
-        }
-
-        return profile
+        return all_attrs
