@@ -2,6 +2,7 @@
 from datetime import date
 # Own libraries
 from db import db
+from models.user import UserModel
 
 
 class AttributeModel(db.Model):
@@ -78,10 +79,13 @@ class UserProfileModel(db.Model):
 
     @classmethod
     def user_profile_json(cls, _user_id):
-        all_attrs = cls.query.filter_by(user_id=_user_id).all()
-        profile = {}
-        profile["user_id"] = _user_id
-        for attr in all_attrs:
-            profile[attr.attr_id] = attr.value
+        profile = {
+            "attrs": {},
+            "user_id": _user_id,
+            "weight": UserModel.find_by_id(_user_id).profile_weight
+        }
+
+        for attr in cls.query.filter_by(user_id=_user_id).all():
+            profile.attrs[attr.attr_id] = attr.value
 
         return profile
