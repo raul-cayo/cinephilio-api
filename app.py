@@ -54,7 +54,7 @@ api.add_resource(MoviesSeenList, "/movies-seen")
 
 api.add_resource(Attribute, "/attr/<string:attr_id>")
 api.add_resource(AttributesList, "/attrs")
-api.add_resource(UserProfile, "/user-profile")
+api.add_resource(UserProfile, "/profile")
 
 api.add_resource(FunFact, "/fun-fact")
 

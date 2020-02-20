@@ -12,6 +12,7 @@ class UserModel(db.Model):
     email = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(512), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
+    profile_weight = db.Column(db.Integer, nullable=False)
 
     created_at = db.Column(db.Date, default=date.today())
     updated_at = db.Column(
@@ -29,6 +30,7 @@ class UserModel(db.Model):
             int(birthdate[5:7]),
             int(birthdate[8:10])
         )
+        self.profile_weight = 0
 
     def json(self):
         return {
