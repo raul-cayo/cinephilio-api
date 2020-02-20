@@ -79,13 +79,14 @@ class UserProfileModel(db.Model):
 
     @classmethod
     def user_profile_json(cls, _user_id):
+        all_attrs = {}
+        for attr in cls.query.filter_by(user_id=_user_id).all():
+            all_attrs[attr.attr_id] = attr.value
+
         profile = {
-            "attrs": {},
+            "attrs": all,
             "user_id": _user_id,
             "weight": UserModel.find_by_id(_user_id).profile_weight
         }
-
-        for attr in cls.query.filter_by(user_id=_user_id).all():
-            profile.attrs[attr.attr_id] = attr.value
 
         return profile
