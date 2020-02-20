@@ -85,15 +85,17 @@ class UserProfile(Resource):
         data = profile_parser.parse_args()
         user_id = get_jwt_identity()
 
+        user = UserModel.find_by_id(user_id)
+
         for attr_id in data:
             attr = UserProfileModel.find_by_ids(user_id, attr_id)
             if not attr:
                 attr = UserProfileModel(user_id, attr_id, data[attr_id])
             else:
-                attr.value = data[attr_id]
+                attr.value = ((attr.value * user.profile_weight)
+                              + data[attr_id]) / (user.profile_weight + 1)
             attr.save_to_db()
 
-        user = UserModel.find_by_id(user_id)
         user.profile_weight += 1
         user.save_to_db()
 
