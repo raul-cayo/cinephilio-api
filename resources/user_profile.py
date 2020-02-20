@@ -53,11 +53,6 @@ class UserProfile(Resource):
             required=True
         )
         profile_parser.add_argument(
-            "sexual_content",
-            type=int,
-            required=True
-        )
-        profile_parser.add_argument(
             "complexity",
             type=int,
             required=True
@@ -97,7 +92,7 @@ class UserProfile(Resource):
             else:
                 attr.value = data[attr_id]
             attr.save_to_db()
-        
+
         user = UserModel.find_by_id(user_id)
         user.profile_weight += 1
         user.save_to_db()
