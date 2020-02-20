@@ -84,7 +84,7 @@ class UserProfileModel(db.Model):
             all_attrs[attr.attr_id] = attr.value
 
         profile = {
-            "attrs": all,
+            "attrs": all_attrs,
             "user_id": _user_id,
             "weight": UserModel.find_by_id(_user_id).profile_weight
         }
