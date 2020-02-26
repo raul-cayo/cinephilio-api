@@ -101,10 +101,10 @@ class UserProfile(Resource):
         user.profile_weight += 1
         user.save_to_db()
 
-        return {"message": "User profile succesfully updated"}, 200
+        return UserProfileModel.user_profile_json(user_id), 200
 
     @classmethod
     @jwt_required
     def get(cls):
         user_id = get_jwt_identity()
-        return UserProfileModel.user_profile_json(user_id)
+        return UserProfileModel.user_profile_json(user_id), 200
