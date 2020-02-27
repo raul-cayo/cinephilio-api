@@ -20,6 +20,10 @@ from resources.user_profile import (
     AttributesList,
     UserProfile
 )
+from resources.questions_asked import (
+    QuestionAsked,
+    QuestionsAskedList
+)
 from resources.fun_fact import FunFact
 from blacklist import BLACKLIST
 
@@ -51,6 +55,9 @@ api.add_resource(TokenRefresh, "/refresh")
 
 api.add_resource(MovieSeen, "/movie-seen/<int:movie_id>")
 api.add_resource(MoviesSeenList, "/movies-seen")
+
+api.add_resource(QuestionAsked, "/question-asked")
+api.add_resource(QuestionsAskedList, "/questions-asked")
 
 api.add_resource(Attribute, "/attr/<string:attr_id>")
 api.add_resource(AttributesList, "/attrs")
