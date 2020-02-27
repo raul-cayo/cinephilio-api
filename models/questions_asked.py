@@ -33,7 +33,7 @@ class QuestionAskedModel(db.Model):
     def json(self):
         return {
             "question_id": self.question_id,
-            "times_asked": self.liked_by_user
+            "times_asked": self.times_asked
         }
 
     def save_to_db(self):
