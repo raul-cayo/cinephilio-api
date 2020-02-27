@@ -52,8 +52,7 @@ class QuestionAskedModel(db.Model):
     @classmethod
     def all_by_user_json(cls, _user_id):
         all_questions = cls.query.filter_by(
-            user_id=_user_id,
-            is_deleted=False
+            user_id=_user_id
         ).all()
         return {
           "questions_asked": [question.json() for question in all_questions]
