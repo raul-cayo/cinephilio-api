@@ -171,7 +171,7 @@ class UserAuth(Resource):
                 from_email='no-reply@cinephilio.com',
                 to_emails=user.email,
                 subject='Confirmación de Cinephilio',
-                html_content='<strong>Es la primera prueba de un envío, este sería tu token '+ token +'</strong>')
+                html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>')
 
         try:
             sg = SendGridAPIClient('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')
