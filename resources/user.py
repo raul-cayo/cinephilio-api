@@ -168,7 +168,7 @@ class UserAuth(Resource):
         token = generate_confirmation_token(user.email)
 
         message = Mail(
-                from_email='from_email@example.com',
+                from_email='no-reply@cinephilio.com',
                 to_emails=user.email,
                 subject='Confirmación de Cinephilio',
                 html_content='<strong>Es la primera prueba de un envío, este sería tu token '+ token +'</strong>')
