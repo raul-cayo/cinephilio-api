@@ -48,7 +48,7 @@ class User(Resource):
             return {"message": "A user with that email already exists"}, 400
 
         user = UserModel(data["username"], data["email"],
-                         data["password"], data["birthdate"])
+                         data["password"], data["birthdate"], False)
         user.save_to_db()
         return {"message": "User created successfully"}, 201
 
@@ -152,3 +152,13 @@ class TokenRefresh(Resource):
         user_id = get_jwt_identity()
         new_token = create_access_token(identity=user_id, fresh=False)
         return {"access_token": new_token}, 200
+
+class UserAuth(Resource):
+    @classmethod
+    @jwt_required
+    def get(self):
+        user_id = get_jwt_identity()
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            return {"message": "User not found"}, 404
+        return user.json(), 200 

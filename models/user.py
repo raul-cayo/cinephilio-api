@@ -13,6 +13,7 @@ class UserModel(db.Model):
     password = db.Column(db.String(512), nullable=False)
     birthdate = db.Column(db.Date, nullable=False)
     profile_weight = db.Column(db.Integer, nullable=False)
+    auth = db.Column(db.Boolean, nullable=False)
 
     created_at = db.Column(db.Date, default=date.today())
     updated_at = db.Column(
@@ -21,7 +22,7 @@ class UserModel(db.Model):
         default=date.today()
     )
 
-    def __init__(self, username, email, password, birthdate):
+    def __init__(self, username, email, password, birthdate, auth):
         self.username = username
         self.email = email
         self.password = password
@@ -30,6 +31,7 @@ class UserModel(db.Model):
             int(birthdate[5:7]),
             int(birthdate[8:10])
         )
+        self.auth = auth
         self.profile_weight = 0
 
     def json(self):
@@ -39,6 +41,7 @@ class UserModel(db.Model):
             "email": self.email,
             "password": self.password,
             "birthdate": self.birthdate.strftime("%Y-%m-%d"),
+            "authentication": self.auth,
             "created_at": self.created_at.strftime("%Y-%m-%d"),
             "updated_at": self.updated_at.strftime("%Y-%m-%d")
         }
