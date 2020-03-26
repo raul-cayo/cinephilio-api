@@ -9,9 +9,13 @@ from flask_jwt_extended import (
     jwt_required,
     get_raw_jwt
 )
+import requests
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 # Own libraries
 from models.user import UserModel
 from blacklist import BLACKLIST
+from email_token import generate_confirmation_token
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
@@ -154,11 +158,24 @@ class TokenRefresh(Resource):
         return {"access_token": new_token}, 200
 
 class UserAuth(Resource):
+    # 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 llave de sendGrid
     @classmethod
     @jwt_required
     def get(self):
         user_id = get_jwt_identity()
         user = UserModel.find_by_id(user_id)
-        if not user:
-            return {"message": "User not found"}, 404
-        return user.json(), 200 
+        
+        token = generate_confirmation_token(user.email)
+
+        message = Mail(
+                from_email='from_email@example.com',
+                to_emails=user.email,
+                subject='Confirmación de Cinephilio',
+                html_content='<strong>Es la primera prueba de un envío, este sería tu token '+ token +'</strong>')
+
+        try:
+            sg = SendGridAPIClient('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')
+            response = sg.send(message)
+            return {"auth_token": "Token enviado"}, 200
+        except Exception as e:
+            print(e.message)
