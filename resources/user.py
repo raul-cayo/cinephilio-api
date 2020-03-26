@@ -182,7 +182,7 @@ class UserAuth(Resource):
 
 class UserAuthConfirmation(Resource):
     @classmethod
-    def post(cls,token):
+    def get(cls,token):
         try:
             email = confirm_email(token)
         except:
