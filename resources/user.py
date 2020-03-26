@@ -1,4 +1,5 @@
 # Python libraries
+from flask import flash, redirect
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
