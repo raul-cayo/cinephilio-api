@@ -10,7 +10,8 @@ from resources.user import (
     UserLogin,
     TokenRefresh,
     UserLogout,
-    UserAuth
+    UserAuth,
+    UserAuthConfirmation
 )
 from resources.movie_seen import (
     MovieSeen,
@@ -54,7 +55,7 @@ api.add_resource(UserLogin, "/login")
 api.add_resource(UserLogout, "/logout")
 api.add_resource(TokenRefresh, "/refresh")
 api.add_resource(UserAuth, "/auth")
-api.add_resource(UserAuth, "/confirm/<string:token>")
+api.add_resource(UserAuthConfirmation, "/confirm/<string:token>")
 
 api.add_resource(MovieSeen, "/movie-seen/<int:movie_id>")
 api.add_resource(MoviesSeenList, "/movies-seen")
