@@ -15,7 +15,7 @@ from sendgrid.helpers.mail import Mail
 # Own libraries
 from models.user import UserModel
 from blacklist import BLACKLIST
-from email_token import generate_confirmation_token
+from resources.email_token import generate_confirmation_token
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
