@@ -178,4 +178,4 @@ class UserAuth(Resource):
             response = sg.send(message)
             return {"auth_token": "Token enviado"}, 200
         except Exception as e:
-            print(e.message)
+            return {"error": e.message}
