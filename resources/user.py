@@ -188,6 +188,7 @@ class UserAuthConfirmation(Resource):
             email = confirm_email(token)
         except:
             flash("El link de confirmación ha expirado.", "danger")
+        email = confirm_email(token)
         user = UserModel.find_by_email(email)
         if user.auth:
             flash("El usuario ya ha sido confirmado. Por favor ingresa", "success")
