@@ -180,8 +180,8 @@ class UserAuth(Resource):
         except Exception as e:
             return {"error": e.message}
 
-    
-    def confirm_email(token):
+    @classmethod
+    def post(cls,token):
         try:
             email = confirm_email(token)
         except:
