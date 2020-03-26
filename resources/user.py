@@ -15,7 +15,7 @@ from sendgrid.helpers.mail import Mail
 # Own libraries
 from models.user import UserModel
 from blacklist import BLACKLIST
-from resources.email_token import generate_confirmation_token
+from resources.email_token import generate_confirmation_token, confirm_token
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
@@ -179,3 +179,18 @@ class UserAuth(Resource):
             return {"auth_token": "Token enviado"}, 200
         except Exception as e:
             return {"error": e.message}
+
+    
+    def confirm_email(token):
+        try:
+            email = confirm_email(token)
+        except:
+            flash("El link de confirmación ha expirado.", "danger")
+        user = UserModel.find_by_email(email)
+        if user.auth:
+            flash("El usuario ya ha sido confirmado. Por favor ingresa", "success")
+        else:
+            user.auth = True
+            user.save_to_db()
+            flash('Has confirmado tu cuenta. ¡Gracias!', 'success')
+        return redirect("https://cinephilio-app.herokuapp.com/", code=302)
