@@ -3,6 +3,13 @@
     <title>
         Cinephilio
     </title>
+    <script>
+        window.onload = function () {
+            setTimeout(() => {
+                window.location.href = "https://cinephilio-app.herokuapp.com/";
+            },3000)
+        }
+    </script>
 </head>
 <body>
     {% with messages = get_flashed_messages() %}

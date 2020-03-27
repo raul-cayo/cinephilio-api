@@ -131,7 +131,11 @@ class UserLogin(Resource):
         data = login_parser.parse_args()
         user = UserModel.find_by_email(data["email"])
 
-        if user and safe_str_cmp(user.password, data["password"]):
+        s = hashlib.sha256()
+        s.update(data["password"].encode('ascii'))
+        ePass = s.hexdigest() 
+
+        if user and safe_str_cmp(user.password, ePass):
             access_token = create_access_token(
                 identity=user.user_id,
                 fresh=True
@@ -203,4 +207,4 @@ class UserAuthConfirmation(Resource):
             user.save_to_db()
             flash('Has confirmado tu cuenta. ¡Gracias!')
 
-        return render_template("https://cinephilio-app.herokuapp.com/", code=302)
+        return render_template('confirmation.html')
