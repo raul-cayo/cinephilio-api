@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Cinephilio
+    </title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <!-- Do something with the message -->
+                <h3>
+                    {{ message }}
+                </h3>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>

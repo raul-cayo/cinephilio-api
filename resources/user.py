@@ -1,5 +1,5 @@
 # Python libraries
-from flask import flash, redirect
+from flask import flash, redirect, render_template
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
@@ -54,7 +54,7 @@ class User(Resource):
             return {"message": "A user with that email already exists"}, 400
 
         s = hashlib.sha256()
-        s.update(data["password"].encode('ascii')
+        s.update(data["password"].encode('ascii'))
 
         user = UserModel(data["username"], data["email"],
                          s.hexdigest(), data["birthdate"], False)
@@ -79,7 +79,7 @@ class User(Resource):
         user.username = data["username"]
         user.email = data["email"]
         s = hashlib.sha256()
-        s.update(data["password"].encode('ascii')
+        s.update(data["password"].encode('ascii'))
         newPass = s.hexdigest()
         user.password = newPass if newPass != user.password else data["password"]
         user.birthdate = data["birthdate"]
@@ -194,13 +194,13 @@ class UserAuthConfirmation(Resource):
         try:
             email = confirm_token(token)
         except:
-            print("El link de confirmación ha expirado.")
+            flash("El link de confirmación ha expirado.")
         user = UserModel.find_by_email(email)
         if user.auth:
-            print("El usuario ya ha sido confirmado. Por favor ingresa")
+            flash("El usuario ya ha sido confirmado. Por favor ingresa")
         else:
             user.auth = True
             user.save_to_db()
-            print('Has confirmado tu cuenta. ¡Gracias!')
-        time.sleep(5)
-        return redirect("https://cinephilio-app.herokuapp.com/", code=302)
+            flash('Has confirmado tu cuenta. ¡Gracias!')
+
+        return render_template("https://cinephilio-app.herokuapp.com/", code=302)
