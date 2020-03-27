@@ -11,6 +11,7 @@ from flask_jwt_extended import (
     get_raw_jwt
 )
 import time
+import hashlib
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 # Own libraries
@@ -52,8 +53,11 @@ class User(Resource):
         if UserModel.find_by_email(data["email"]):
             return {"message": "A user with that email already exists"}, 400
 
+        s = hashlib.sha256()
+        s.update(data["password"].encode('ascii')
+
         user = UserModel(data["username"], data["email"],
-                         data["password"], data["birthdate"], False)
+                         s.hexdigest(), data["birthdate"], False)
         user.save_to_db()
         return {"message": "User created successfully"}, 201
 
@@ -74,7 +78,10 @@ class User(Resource):
         # Update user information
         user.username = data["username"]
         user.email = data["email"]
-        user.password = data["password"]
+        s = hashlib.sha256()
+        s.update(data["password"].encode('ascii')
+        newPass = s.hexdigest()
+        user.password = newPass if newPass != user.password else data["password"]
         user.birthdate = data["birthdate"]
 
         user.save_to_db()
@@ -196,4 +203,4 @@ class UserAuthConfirmation(Resource):
             user.save_to_db()
             print('Has confirmado tu cuenta. ¡Gracias!')
         time.sleep(5)
-        return "Hola mensaje" and redirect("https://cinephilio-app.herokuapp.com/", code=302)
+        return redirect("https://cinephilio-app.herokuapp.com/", code=302)
