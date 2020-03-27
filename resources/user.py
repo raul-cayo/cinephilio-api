@@ -10,7 +10,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_raw_jwt
 )
-import requests
+import time
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 # Own libraries
@@ -187,12 +187,13 @@ class UserAuthConfirmation(Resource):
         try:
             email = confirm_token(token)
         except:
-            flash("El link de confirmación ha expirado.", "danger")
+            print("El link de confirmación ha expirado.")
         user = UserModel.find_by_email(email)
         if user.auth:
-            flash("El usuario ya ha sido confirmado. Por favor ingresa", "success")
+            print("El usuario ya ha sido confirmado. Por favor ingresa")
         else:
             user.auth = True
             user.save_to_db()
-            flash('Has confirmado tu cuenta. ¡Gracias!', 'success')
+            print('Has confirmado tu cuenta. ¡Gracias!')
+        time.sleep(5)
         return redirect("https://cinephilio-app.herokuapp.com/", code=302)
