@@ -196,4 +196,4 @@ class UserAuthConfirmation(Resource):
             user.save_to_db()
             print('Has confirmado tu cuenta. ¡Gracias!')
         time.sleep(5)
-        return redirect("https://cinephilio-app.herokuapp.com/", code=302)
+        return "Hola mensaje" and redirect("https://cinephilio-app.herokuapp.com/", code=302)
