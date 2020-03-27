@@ -1,5 +1,5 @@
 # Python libraries
-from flask import flash, redirect, render_template
+from flask import flash, redirect, render_template, make_response
 from flask_restful import Resource, reqparse
 from werkzeug.security import safe_str_cmp
 from flask_jwt_extended import (
@@ -206,5 +206,5 @@ class UserAuthConfirmation(Resource):
             user.auth = True
             user.save_to_db()
             flash('Has confirmado tu cuenta. ¡Gracias!')
-
-        return render_template('confirmation.html')
+        headers = {'Content-Type': 'text/html'}
+        return make_response(render_template('confirmation.html'),200,headers)
