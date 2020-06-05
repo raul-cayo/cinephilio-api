@@ -1,26 +1,41 @@
 <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <title>
-        Cinephilio
-    </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <script>
+    <title>Cinephilio</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- <script>
         window.onload = function () {
             setTimeout(() => {
                 window.location.href = "https://cinephilio-app.herokuapp.com/";
             },3000)
         }
-    </script>
+    </script> -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="./app.css" />
 </head>
+
 <body>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <!-- Do something with the message -->
-                <h3>
-                    {{ message }}
-                </h3>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    <nav class="cphio-navbar navbar navbar-light">
+        <a class="titulo-navbar px-2">Cinephilio</a>
+    </nav>
+
+    <div>
+        <div class="container">
+            <div class="col-lg-10 offset-lg-1 mt-4">
+                <div class="row my-2 px-4">
+                    <div class="col-12 col-md-3">
+                        <img class="logo rounded-circle d-block mx-auto my-2" src="./LogoDark.png" alt="Logo Cinephilio" />
+                    </div>
+                    <p class="my-auto text-box col-12 col-md-9 py-3">Regresando a Cinephilio..</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+</html>
