@@ -176,15 +176,12 @@ class UserAuth(Resource):
     def get(self):
         user_id = get_jwt_identity()
         user = UserModel.find_by_id(user_id)
-        
         token = generate_confirmation_token(user.email)
-
         message = Mail(
                 from_email='no-reply@cinephilio.com',
                 to_emails=user.email,
                 subject='Confirmación de Cinephilio',
-                html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>')
-
+                html_content='<!DOCTYPE html><html lang="en"><head><title>Cinephilio</title><meta charset="UTF-8" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="icon" href="../templates/LogoDark.png"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" /><link rel="stylesheet" href="../templates/app.css" /></head><body><nav class="cphio-navbar navbar navbar-light"><a class="titulo-navbar px-2">Cinephilio</a></nav><div><div class="container"><div class="col-lg-10 offset-lg-1 mt-4"><div class="row my-2 px-4"><div class="col-12 col-md-3"><img class="logo rounded-circle d-block mx-auto my-2" src="../templates/LogoDark.png" alt="Logo Cinephilio" /></div><p class="my-auto text-box col-12 col-md-9 py-3"><strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong></p></div></div></div></div></body></html>')
         try:
             sg = SendGridAPIClient('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')
             response = sg.send(message)
