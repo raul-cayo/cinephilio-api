@@ -18,6 +18,7 @@ from sendgrid.helpers.mail import Mail
 from models.user import UserModel
 from blacklist import BLACKLIST
 from resources.email_token import generate_confirmation_token, confirm_token
+import os
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
@@ -174,8 +175,8 @@ class UserAuth(Resource):
     @classmethod
     @jwt_required
     def get(self):
-
-        with open('../templates/authentication.html', 'r') as f:
+        file_name = os.getcwd() + "/templates/authentication.html"
+        with open(file_name, 'r') as f:
             html_string = f.read()
             user_id = get_jwt_identity()
             user = UserModel.find_by_id(user_id)
