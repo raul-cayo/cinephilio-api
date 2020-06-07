@@ -187,7 +187,7 @@ class UserAuth(Resource):
 
         try:
             sg = SendGridAPIClient('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')
-            _ = sg.send(message)
+            response = sg.send(message)
             return {"auth_token": "Token enviado"}, 200
         except Exception as e:
             return {"error": e.message}
