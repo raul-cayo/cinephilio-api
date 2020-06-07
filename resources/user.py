@@ -18,7 +18,6 @@ from sendgrid.helpers.mail import Mail
 from models.user import UserModel
 from blacklist import BLACKLIST
 from resources.email_token import generate_confirmation_token, confirm_token
-import os
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument(
@@ -175,27 +174,23 @@ class UserAuth(Resource):
     @classmethod
     @jwt_required
     def get(self):
-        file_name = os.getcwd() + "/templates/authentication.html"
-        with open(file_name, 'r') as f:
-            html_string = f.read()
-            user_id = get_jwt_identity()
-            user = UserModel.find_by_id(user_id)
-            
-            token = generate_confirmation_token(user.email)
+        user_id = get_jwt_identity()
+        user = UserModel.find_by_id(user_id)
+        
+        token = generate_confirmation_token(user.email)
 
-            message = Mail(
-                    from_email='no-reply@cinephilio.com',
-                    to_emails=user.email,
-                    subject='Confirmación de Cinephilio',
-                    # html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>'
-                    html_content=html_string)
+        message = Mail(
+                from_email='no-reply@cinephilio.com',
+                to_emails=user.email,
+                subject='Confirmación de Cinephilio',
+                html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>')
 
-            try:
-                sg = SendGridAPIClient('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')
-                response = sg.send(message)
-                return {"auth_token": "Token enviado"}, 200
-            except Exception as e:
-                return {"error": e.message}
+        try:
+            sg = SendGridAPIClient('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')
+            response = sg.send(message)
+            return {"auth_token": "Token enviado"}, 200
+        except Exception as e:
+            return {"error": e.message}
 
 class UserAuthConfirmation(Resource):
     @classmethod
@@ -213,5 +208,6 @@ class UserAuthConfirmation(Resource):
             else:
                 user.auth = True
                 user.save_to_db()
+                flash('Has confirmado tu cuenta. ¡Gracias!')
         headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('confirmation.html'), 200, headers)
+        return make_response(render_template('confirmation.html'),200,headers)
