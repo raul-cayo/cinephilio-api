@@ -1,30 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Cinephilio</title>
     <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="icon" href="{{ url_for('static',filename='LogoDark.png') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{{ url_for('static',filename='app.css') }}" />
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Lobster+Two&display=swap");
+      @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap");
+
+      .cphio-navbar {
+        background-color: #31e3cb;
+        padding: 10px 16px;
+      }
+
+      .titulo-navbar {
+        font-family: "Lobster Two", cursive;
+        font-size: 1.5rem;
+        color: #41514e;
+        border: 2px solid #41514e;
+        border-radius: 2rem;
+        text-decoration: none;
+      }
+
+      .titulo-navbar:hover {
+        text-decoration: none;
+        color: #f8f8f8;
+        background-color: #41514e;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        margin: 0;
+        background-color: #41514e;
+        font-family: "Open Sans", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .logo {
+        width: 6rem;
+        height: 6rem;
+      }
+
+      .text-box {
+        background-color: #f8f8f8;
+        border-radius: 0.2rem;
+        color: #000;
+        border: 4px solid #31e3cb;
+      }
+
+      .cbt-blue {
+        border-radius: 2rem;
+        border: none;
+        background-color: #2f88fc;
+        color: #f8f8f8;
+      }
+
+      .cbt-blue:hover {
+        color: #f8f8f8;
+      }
+
+      .cbt-blue:hover {
+        -webkit-box-shadow: 0px 0px 18px -11px rgba(255, 255, 255, 0.94);
+        -moz-box-shadow: 0px 0px 18px -11px rgba(255, 255, 255, 0.94);
+        box-shadow: 0px 0px 18px -11px rgba(255, 255, 255, 0.94);
+      }
+    </style>
+  </head>
+  <body>
     <nav class="cphio-navbar navbar navbar-light">
-        <a class="titulo-navbar px-2">Cinephilio</a>
+      <a class="titulo-navbar px-2">Cinephilio</a>
     </nav>
     <div>
-        <div class="container">
-            <div class="col-lg-10 offset-lg-1 mt-4">
-                <div class="row my-2 px-4">
-                    <div class="col-12 col-md-3">
-                        <img class="logo rounded-circle d-block mx-auto my-2" src="{{ url_for('static',filename='LogoDark.png') }}" alt="Logo Cinephilio" />
-                    </div>
-                    <p class="my-auto text-box col-12 col-md-9 py-3"><a href="">Haz click aqui para confirmar tu correo</a></p>
-                </div>
+      <div class="container">
+        <div class="col-lg-10 offset-lg-1 mt-4">
+          <div class="row my-2 px-4">
+            <div class="col-12 col-md-3">
             </div>
+            <p class="my-auto text-box col-12 col-md-9 py-3">
+              <a href="">Haz click aqui para confirmar tu correo</a>
+            </p>
+          </div>
         </div>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
