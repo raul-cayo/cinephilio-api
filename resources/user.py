@@ -174,23 +174,27 @@ class UserAuth(Resource):
     @classmethod
     @jwt_required
     def get(self):
-        user_id = get_jwt_identity()
-        user = UserModel.find_by_id(user_id)
-        
-        token = generate_confirmation_token(user.email)
 
-        message = Mail(
-                from_email='no-reply@cinephilio.com',
-                to_emails=user.email,
-                subject='Confirmación de Cinephilio',
-                html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>')
+        with open('../templates/authentication.html', 'r') as f:
+            html_string = f.read()
+            user_id = get_jwt_identity()
+            user = UserModel.find_by_id(user_id)
+            
+            token = generate_confirmation_token(user.email)
 
-        try:
-            sg = SendGridAPIClient('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')
-            response = sg.send(message)
-            return {"auth_token": "Token enviado"}, 200
-        except Exception as e:
-            return {"error": e.message}
+            message = Mail(
+                    from_email='no-reply@cinephilio.com',
+                    to_emails=user.email,
+                    subject='Confirmación de Cinephilio',
+                    # html_content='<strong>Hola, te pido que des clic en el siguiente link para confirmar tu cuenta https://cinephilio-api.herokuapp.com/confirm/'+token+'</strong>'
+                    html_content=html_string)
+
+            try:
+                sg = SendGridAPIClient('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')
+                response = sg.send(message)
+                return {"auth_token": "Token enviado"}, 200
+            except Exception as e:
+                return {"error": e.message}
 
 class UserAuthConfirmation(Resource):
     @classmethod
