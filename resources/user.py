@@ -208,6 +208,5 @@ class UserAuthConfirmation(Resource):
             else:
                 user.auth = True
                 user.save_to_db()
-                flash('Has confirmado tu cuenta. ¡Gracias!')
         headers = {'Content-Type': 'text/html'}
-        return make_response(render_template('confirmation.html'),200,headers)
+        return make_response(render_template('confirmation.html'), 200, headers)
